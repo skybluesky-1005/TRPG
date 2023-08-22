@@ -87,18 +87,26 @@ namespace TextGame
             Console.SetCursorPosition(2, 12);
             Console.WriteLine($"레벨: {playerInfo.level}\n" +
                               $"│ 경험치: {playerInfo.exp}\n" +
-                              $"│ 골드: {playerInfo.gold}\n" +
-                              $"│ 물리공격: {playerInfo.pAtk}\n" +
-                              $"│ 마법공격: {playerInfo.mAtk}\n" +
-                              $"│ 물리방어: {playerInfo.pDef}\n" +
-                              $"│ 마법방어: {playerInfo.mDef}\n" +
-                              $"│ 민첩: {playerInfo.dex}\n" +
-                              $"│ 체력: {playerInfo.hp}\n" +
-                              $"│ 마나: {playerInfo.mp}\n");
-
-            Console.ReadLine();
+                              $"│ 공격력: {playerInfo.atk}\n" +
+                              $"│ 방어력: {playerInfo.def}\n" +
+                              $"│ 체력: {playerInfo.hp}");
+            //$"│ 물리공격: {playerInfo.pAtk}\n" +
+            //$"│ 마법공격: {playerInfo.mAtk}\n" +
+            //$"│ 물리방어: {playerInfo.pDef}\n" +
+            //$"│ 마법방어: {playerInfo.mDef}\n" +
+            //$"│ 민첩: {playerInfo.dex}\n" +
+            //$"│ 체력: {playerInfo.hp}\n" +
+            //$"│ 마나: {playerInfo.mp}\n");
+            Console.SetCursorPosition(2, 24);
+            Console.WriteLine("0. 나가기");
+            switch (InputControl.CheckValidInput(0, 0))
+            {
+                case 0:
+                    Console.Clear();
+                    LoadTitle();
+                    break;
+            }
         }
-
         public void LoadInventory()
         {
             Console.WriteLine("██╗███╗   ██╗██╗   ██╗███████╗███╗   ██╗████████╗ ██████╗ ██████╗ ██╗   ██╗\r\n" +
@@ -107,7 +115,100 @@ namespace TextGame
                               "██║██║╚██╗██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██╔══██╗  ╚██╔╝  \r\n" +
                               "██║██║ ╚████║ ╚████╔╝ ███████╗██║ ╚████║   ██║   ╚██████╔╝██║  ██║   ██║   \r\n" +
                               "╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   \r\n" +
-                              "                                                                           ");
+                              "                                                                           \r\n");
+            Console.WriteLine("┌────────────────────────┬────────────────────────┐\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                              "└────────────────────────┴────────────────────────┘");
+            Console.SetCursorPosition(2, 9);
+            Item.PrintItem();
+
+            Console.SetCursorPosition(2, 32);
+            Console.WriteLine("1. 장착관리");
+            Console.SetCursorPosition(2, 33);
+            Console.WriteLine("0. 나가기");
+            switch (InputControl.CheckValidInput(0, 1))
+            {
+                case 0:
+                    Console.Clear();
+                    LoadTitle();
+                    break;
+                case 1:
+                    Console.Clear();
+                    LoadEquipManager();
+                    break;
+            }
+        }
+
+        public void LoadEquipManager()
+        {
+            Console.WriteLine("███████╗ ██████╗ ██╗   ██╗██╗██████╗ ███╗   ███╗███████╗███╗   ██╗████████╗\r\n" +
+                              "██╔════╝██╔═══██╗██║   ██║██║██╔══██╗████╗ ████║██╔════╝████╗  ██║╚══██╔══╝\r\n" +
+                              "█████╗  ██║   ██║██║   ██║██║██████╔╝██╔████╔██║█████╗  ██╔██╗ ██║   ██║   \r\n" +
+                              "██╔══╝  ██║▄▄ ██║██║   ██║██║██╔═══╝ ██║╚██╔╝██║██╔══╝  ██║╚██╗██║   ██║   \r\n" +
+                              "███████╗╚██████╔╝╚██████╔╝██║██║     ██║ ╚═╝ ██║███████╗██║ ╚████║   ██║   \r\n" +
+                              "╚══════╝ ╚══▀▀═╝  ╚═════╝ ╚═╝╚═╝     ╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝   \r\n" +
+                              "                                                                           \r\n");
+            Console.WriteLine("┌────────────────────────┬────────────────────────┐\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                             $"│                        │                        │\r\n" +
+                              "└────────────────────────┴────────────────────────┘");
+            Console.SetCursorPosition(2, 32);
+            Console.WriteLine("아이템 장착 / 해제: Spacebar");
+            Console.WriteLine("  0.나가기");
+
+            Console.SetCursorPosition(2, 9);
+            Item.PrintEquipSetting();
+            Item.EquipManager();
+
+            switch (InputControl.CheckValidInput(0, 0))
+            {
+                case 0:
+                    Console.Clear();
+                    LoadInventory();
+                    break;
+            }
+
         }
     }
 }
