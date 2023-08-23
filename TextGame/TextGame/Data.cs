@@ -68,11 +68,6 @@ namespace TextGame
             }
         }
 
-        public static PlayerInfo CreatePlayerInfo(string name, int choiceClass)
-        {
-            return new PlayerInfo(name, choiceClass);
-        }
-
         public static void SavePlayerData(PlayerInfo playerInfo)
         {
             string saveJson = JsonConvert.SerializeObject(playerInfo, Formatting.Indented);
