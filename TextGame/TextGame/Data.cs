@@ -10,12 +10,12 @@ using Newtonsoft.Json;
 
 namespace TextGame
 {
-    enum PlayerClass
+    public enum PlayerClass
     {
         Warrior = 1, Wizard, Thief, Hunter, Priest, Paladin, Druid, Warlock, Shaman
     }
 
-    class Data
+    public class Data
     {
         //public static readonly PlayerInfo[] classStats = new PlayerInfo[]
         //{
@@ -73,18 +73,34 @@ namespace TextGame
             return new PlayerInfo(name, choiceClass);
         }
 
-        public static void SaveData(PlayerInfo playerInfo)
+        public static void SavePlayerData(PlayerInfo playerInfo)
         {
             string saveJson = JsonConvert.SerializeObject(playerInfo, Formatting.Indented);
-            File.WriteAllText("savefile.json", saveJson);
+            File.WriteAllText("player.json", saveJson);
+            Console.SetCursorPosition(2, ++Console.CursorTop);
             Console.WriteLine("저장완료");
         }
 
-        public static PlayerInfo LoadData()
+        public static void SaveItemData(List<Item> items)
         {
-            string loadJson = File.ReadAllText("savefile.json");
+            string saveJson = JsonConvert.SerializeObject(items, Formatting.Indented);
+            File.WriteAllText("item.json", saveJson);
+            Console.SetCursorPosition(2, ++Console.CursorTop);
+            Console.WriteLine("저장완료");
+        }
+
+        public static PlayerInfo LoadPlayerData()
+        {
+           string loadJson = File.ReadAllText("player.json");
             PlayerInfo loadPlayerInfo = JsonConvert.DeserializeObject<PlayerInfo>(loadJson);
             return loadPlayerInfo;
+        }
+
+        public static List<Item> LoadItemData()
+        {
+            string loadJson = File.ReadAllText("item.json");
+            List<Item> loadItems = JsonConvert.DeserializeObject<List<Item>>(loadJson);
+            return loadItems;
         }
     }
 }

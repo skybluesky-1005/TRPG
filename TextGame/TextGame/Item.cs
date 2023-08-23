@@ -27,7 +27,7 @@ namespace TextGame
 
         static int i;
 
-        static List<Item> items = new List<Item>
+        public static List<Item> items = new List<Item>
         {
             new Item
             {
@@ -90,7 +90,7 @@ namespace TextGame
             Console.SetCursorPosition(2, 34);
         }
 
-        public static void EquipManager()
+        public static void EquipManager(Data.PlayerInfo playerInfo)
         {
             int input;
             while ((input = InputControl.CheckValidInput(0, i)) != 0)
@@ -114,8 +114,24 @@ namespace TextGame
                     Console.SetCursorPosition(2, 34);
 
                     ConsoleKeyInfo keyInfo = Console.ReadKey();
-                    if (keyInfo.Key == ConsoleKey.Spacebar) selectedItem.isEquip = !selectedItem.isEquip;
-                    
+                    if (keyInfo.Key == ConsoleKey.Spacebar) 
+                    {
+                        selectedItem.isEquip = !selectedItem.isEquip;
+                        if (selectedItem.isEquip)
+                        {
+                            playerInfo.atk += selectedItem.atkUp;
+                            playerInfo.def += selectedItem.defUp;
+                            playerInfo.hp += selectedItem.hpUp;
+                        }
+                        else
+                        {
+                            playerInfo.atk -= selectedItem.atkUp;
+                            playerInfo.def -= selectedItem.defUp;
+                            playerInfo.hp -= selectedItem.hpUp;
+                        }
+                        Data.SavePlayerData(playerInfo);
+                        Data.SaveItemData(items);
+                    }
                 }
                 for (int j = 9; j < 31; j++)
                 {
@@ -127,6 +143,8 @@ namespace TextGame
                 Console.SetCursorPosition(2, 9);
                 PrintEquipSetting();
             }
+            Console.Clear();
+            SceneManager.LoadInventory();
             Console.SetCursorPosition(2, 34);
         }
     }

@@ -10,8 +10,9 @@ namespace TextGame
     class SceneManager
     {
         public InputControl inputControl = new InputControl();
+        static public Data.PlayerInfo playerInfo;
 
-        public void LoadTitle()
+        public static void LoadTitle()
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("   ▄████████    ▄███████▄    ▄████████    ▄████████     ███        ▄████████ ");
@@ -52,10 +53,9 @@ namespace TextGame
             }
         }
 
-        public void LoadStatus()
+        public static void LoadStatus()
         {
-            Data.PlayerInfo playerInfo = Data.LoadData();
-
+            playerInfo = Data.LoadPlayerData();
             Console.WriteLine("███████╗████████╗ █████╗ ████████╗██╗   ██╗███████╗\r\n" +
                               "██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██║   ██║██╔════╝\r\n" +
                               "███████╗   ██║   ███████║   ██║   ██║   ██║███████╗\r\n" +
@@ -90,13 +90,13 @@ namespace TextGame
                               $"│ 공격력: {playerInfo.atk}\n" +
                               $"│ 방어력: {playerInfo.def}\n" +
                               $"│ 체력: {playerInfo.hp}");
-            //$"│ 물리공격: {playerInfo.pAtk}\n" +
-            //$"│ 마법공격: {playerInfo.mAtk}\n" +
-            //$"│ 물리방어: {playerInfo.pDef}\n" +
-            //$"│ 마법방어: {playerInfo.mDef}\n" +
-            //$"│ 민첩: {playerInfo.dex}\n" +
-            //$"│ 체력: {playerInfo.hp}\n" +
-            //$"│ 마나: {playerInfo.mp}\n");
+                            //$"│ 물리공격: {playerInfo.pAtk}\n" +
+                            //$"│ 마법공격: {playerInfo.mAtk}\n" +
+                            //$"│ 물리방어: {playerInfo.pDef}\n" +
+                            //$"│ 마법방어: {playerInfo.mDef}\n" +
+                            //$"│ 민첩: {playerInfo.dex}\n" +
+                            //$"│ 체력: {playerInfo.hp}\n" +
+                            //$"│ 마나: {playerInfo.mp}\n");
             Console.SetCursorPosition(2, 24);
             Console.WriteLine("0. 나가기");
             switch (InputControl.CheckValidInput(0, 0))
@@ -107,7 +107,7 @@ namespace TextGame
                     break;
             }
         }
-        public void LoadInventory()
+        public static void LoadInventory()
         {
             Console.WriteLine("██╗███╗   ██╗██╗   ██╗███████╗███╗   ██╗████████╗ ██████╗ ██████╗ ██╗   ██╗\r\n" +
                               "██║████╗  ██║██║   ██║██╔════╝████╗  ██║╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝\r\n" +
@@ -160,7 +160,7 @@ namespace TextGame
             }
         }
 
-        public void LoadEquipManager()
+        public static void LoadEquipManager()
         {
             Console.WriteLine("███████╗ ██████╗ ██╗   ██╗██╗██████╗ ███╗   ███╗███████╗███╗   ██╗████████╗\r\n" +
                               "██╔════╝██╔═══██╗██║   ██║██║██╔══██╗████╗ ████║██╔════╝████╗  ██║╚══██╔══╝\r\n" +
@@ -199,16 +199,7 @@ namespace TextGame
 
             Console.SetCursorPosition(2, 9);
             Item.PrintEquipSetting();
-            Item.EquipManager();
-
-            switch (InputControl.CheckValidInput(0, 0))
-            {
-                case 0:
-                    Console.Clear();
-                    LoadInventory();
-                    break;
-            }
-
+            Item.EquipManager(playerInfo);
         }
     }
 }

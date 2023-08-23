@@ -15,9 +15,13 @@ namespace TextGame
 
             Console.OutputEncoding = Encoding.UTF8;
             Console.SetWindowSize(winWidth, winHeight);
+            if (!File.Exists("player.json"))
+                File.WriteAllText("player.json", "{}");
+            if (!File.Exists("item.json"))
+                File.WriteAllText("item.json", "{}");
 
-            SceneManager sceneManager = new SceneManager();
-            PlayerInfo playerInfo = LoadData();
+            PlayerInfo playerInfo = LoadPlayerData();
+            LoadItemData();
 
             while (playerInfo.name == null && playerInfo.playerClass == 0)
             {
@@ -49,7 +53,7 @@ namespace TextGame
                     playerInfo.level = stat.level;
                     playerInfo.exp = stat.exp;
 
-                    SaveData(playerInfo);
+                    SavePlayerData(playerInfo);
                     Console.ReadLine();
                     Console.Clear();
                 }
@@ -62,7 +66,9 @@ namespace TextGame
                     Console.Clear();
                 }
             }
-            sceneManager.LoadTitle();
+            SceneManager.LoadTitle();
+            LoadItemData();
+            LoadPlayerData();
         }
     }
 }
